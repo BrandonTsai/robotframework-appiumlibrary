@@ -74,3 +74,29 @@ class _AndroidUtilsKeywords(KeywordGroup):
         if encode:
             data = base64.b64encode(data)
         driver.push_file(path, data)
+
+    def get_current_activity(self):
+	""" Returns an string specifying the current top activity
+
+        Android only.
+	"""
+	driver = self._current_application()
+        activity = driver.current_activity
+	print "current activity :%s" % activity
+	return activity
+
+
+    def current_activity_should_be(self, activity):
+        """Verifies that current activity is `activity`.
+
+        If this keyword fails, it automatically logs the page source
+        using the log level specified with the optional `loglevel` argument.
+        Giving `NONE` as level disables logging.
+        """
+	driver = self._current_application()
+        current_activity = driver.current_activity
+        if activity != current_activity:
+            raise AssertionError("Current activity should be '%s' " 
+                                 "but is '%s'" % (activity, current_activity))
+        self._info("Current activity is '%s'." % activity)
+
