@@ -249,6 +249,7 @@ class _ElementKeywords(KeywordGroup):
         #                         "but it was '%s'." % (locator, attr_name, expected, element.get_attribute(attr_name)))
         self._info("Element '%s' attribute '%s' is '%s' " % (locator, attr_name, match_pattern))
 
+
     def get_elements(self, locator, first_element_only=False, fail_on_error=True):
         """Return elements that match the search criteria
 
@@ -262,6 +263,27 @@ class _ElementKeywords(KeywordGroup):
         Returns a list of [http://selenium-python.readthedocs.org/en/latest/api.html#module-selenium.webdriver.remote.webelement|WebElement] Objects.
         """
         return self._element_find(locator, first_element_only, fail_on_error)
+
+
+    def get_element_count(self, locator):
+        try:
+            elements = self._element_find(locator, False, True)
+        except:
+            return 0
+        return len(elements)
+    
+
+    def element_count_should_be(self, locator, expected):
+        try:
+            elements = self._element_find(locator, False, True)
+            ele_len = len(elements)
+        except Exception:
+            ele_len = 0
+        if int(expected) != ele_len:
+            raise AssertionError("Element '%s' count should be '%s' "
+                                 "but it is '%s'." % (locator, expected, ele_len))
+        self._info("Element '%s' count is '%s' " % (locator, expected))
+
 
     def get_element_attribute(self, locator, attribute):
         """Get element attribute using given attribute: name, value,...
