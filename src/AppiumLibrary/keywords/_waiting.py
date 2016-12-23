@@ -64,6 +64,24 @@ class _WaitingKeywords(KeywordGroup):
             error = "Element '%s' did not appear in <TIMEOUT>" % locator
         self._wait_until(timeout, error, self._is_element_present, locator)
 
+    def wait_until_element_contains_text(self, locator, timeout=None, error=None):
+        """Waits until element specified with `locator` appears on current page.
+
+        Fails if `timeout` expires before the element appears. See
+        `introduction` for more information about `timeout` and its
+        default value.
+
+        `error` can be used to override the default error message.
+
+        See also `Wait Until Page Contains`,
+        `Wait Until Page Does Not Contain`
+        `Wait Until Page Does Not Contain Element`
+        and BuiltIn keyword `Wait Until Keyword Succeeds`.
+        """
+        if not error:
+            error = "Element '%s' did not appear in <TIMEOUT>" % locator
+        self._wait_until(timeout, error, self._is_element_contain_text, locator)
+
     def wait_until_page_does_not_contain_element(self, locator, timeout=None, error=None):
         """Waits until element specified with `locator` disappears from current page.
 

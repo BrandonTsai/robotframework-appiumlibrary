@@ -329,6 +329,18 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' size: %s " % (locator, element_size))
         return element_size
 
+    def get_element_text(self, locator):
+        """Get element size
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        element = self._element_find(locator, True, True)
+        element_text = element.text
+        self._info("Element '%s' text: %s " % (locator, element_text))
+        return element_text
+
+
     # Private
 
     def _is_index(self, index_or_name):
@@ -448,3 +460,10 @@ class _ElementKeywords(KeywordGroup):
         application = self._current_application()
         elements = self._element_finder.find(application, locator, None)
         return len(elements) > 0
+
+    def _is_element_contain_text(self, locator):
+        element = self._element_find(locator, True, True)
+        if not element.text:
+            return False
+        print element.text
+        return True
