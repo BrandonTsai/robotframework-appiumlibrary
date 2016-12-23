@@ -340,6 +340,27 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' text: %s " % (locator, element_text))
         return element_text
 
+    def get_element_width(self, locator):
+        """Get element size
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        element = self._element_find(locator, True, True)
+        element_width = element.size.get('width')
+        self._info("Element '%s' width: %s " % (locator, element_width))
+        return element_width
+
+    def get_element_height(self, locator):
+        """Get element size
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        element = self._element_find(locator, True, True)
+        element_height = element.size.get('height')
+        self._info("Element '%s' height: %s " % (locator, element_height))
+        return element_height
 
     # Private
 
